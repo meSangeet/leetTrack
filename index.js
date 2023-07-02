@@ -1,14 +1,14 @@
 //modules imported
 
-const https = require('https');
+const http = require('https');
 
 
 
 //main code
 
-let PFurl = "https://leetcode-stats-api.herokuapp.com/sangeetworkspace"; //profile url
+let PFurl = "https://leetcode-stats-api.herokuapp.com"; //profile url
 
-https.get(PFurl, (res)=>{
+http.get(PFurl, (res)=>{
     let data = '';
     //after creating an empty string we will start writing data to the string in chunks of data
     res.on('data', (chunk) => {
