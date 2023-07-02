@@ -35,24 +35,28 @@
 
     .user-stats {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: center;
       margin-bottom: 20px;
     }
 
-    .user-stats .stat {
-      background-color: #002244;
-      padding: 10px;
+    .stat {
+      background-color: #00334d;
       border-radius: 5px;
+      margin: 10px;
+      padding: 20px;
+      text-align: center;
     }
 
-    .user-stats .stat-title {
-      font-size: 18px;
-      margin-bottom: 5px;
+    .stat-title {
+      font-size: 20px;
+      margin-bottom: 10px;
     }
 
-    .user-stats .stat-value {
-      font-size: 24px;
+    .stat-value {
+      font-size: 36px;
       color: #4CAF50;
+      font-weight: bold;
     }
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
