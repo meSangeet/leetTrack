@@ -7,7 +7,7 @@ const server = http.createServer((req, res) => {
 
     if (pgurl == '/') {
         res.writeHead(200);
-        res.end('This is the home page');
+        res.end('./home.html');
     } else {
         let PFurl = PFurlorg + pgurl;
         console.log(PFurl);
