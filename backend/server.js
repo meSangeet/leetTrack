@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
   let pgurl = req.url;
 
   if (pgurl === '/') {
-    fs.readFile('./home.html', 'utf-8', (err, data) => {
+    fs.readFile(`${__dirname}/../frontend/home.html`, 'utf-8', (err, data) => {
       if (err) {
         res.writeHead(500);
         res.end('An error occurred');
@@ -60,7 +60,7 @@ const server = http.createServer((req, res) => {
       });
     });
   } else if(req.url == '/profile'){
-    fs.readFile('./profile.html', 'utf-8', (err, data) => {
+    fs.readFile(`${__dirname}/../frontend/profile.html`, 'utf-8', (err, data) => {
         if (err) {
           res.writeHead(500);
           res.end('An error occurred');
