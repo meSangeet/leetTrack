@@ -84,34 +84,50 @@
     <div class="user-stats">
       <div class="stat">
         <div class="stat-title">LeetCode Username</div>
-        <div class="stat-value">JohnDoe123</div>
+        <div class="stat-value" id="username">{%username%}</div>
       </div>
       <div class="stat">
-        <div class="stat-title">Total Questions Solved</div>
-        <div class="stat-value">150</div>
+        <div class="stat-title" >Total Questions Solved</div>
+        <div class="stat-value" id="totalQuestions"></div>
       </div>
       <div class="stat">
         <div class="stat-title">Easy Questions Solved</div>
-        <div class="stat-value">100</div>
-        <div class="progress-bar">
-          <div class="progress-bar-fill" style="width: 40%;"></div>
+        <div class="stat-value" id="easyQuestions"></div>
+        <div class="progress-bar" id="pbe">
+          <div class="progress-bar-fill" style="width: 50%;"></div>
         </div>
       </div>
       <div class="stat">
         <div class="stat-title">Medium Questions Solved</div>
-        <div class="stat-value">60</div>
-        <div class="progress-bar">
-          <div class="progress-bar-fill" style="width: 24%;"></div>
+        <div class="stat-value" id="mediumQuestions"></div>
+        <div class="progress-bar" id="pbm">
+          <div class="progress-bar-fill" style="width: 50%;"></div>
         </div>
       </div>
       <div class="stat">
         <div class="stat-title">Hard Questions Solved</div>
-        <div class="stat-value">25</div>
-        <div class="progress-bar">
-          <div class="progress-bar-fill" style="width: 5%;"></div>
+        <div class="stat-value" id="hardQuestions"></div>
+        <div class="progress-bar" id="pbh">
+          <div class="progress-bar-fill" style="width: 50%;"></div>
         </div>
       </div>
     </div>
   </main>
+  <script>
+    // Fetch data from API
+    fetch("{%API%}")
+      .then(response => response.json())
+      .then(data => {
+        
+        document.getElementById('totalQuestions').textContent = `Total Questions Solved: ${data.totalSolved} / ${data.totalQuestions}`;
+        document.getElementById('easyQuestions').textContent = `Easy Questions Solved: ${data.easySolved} / ${data.totalEasy}`;
+        document.getElementById('mediumQuestions').textContent = `Medium Questions Solved: ${data.mediumSolved} / ${data.totalMedium}`;
+        document.getElementById('hardQuestions').textContent = `Hard Questions Solved: ${data.hardSolved} / ${data.totalHard}`;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  </script>
+  '{%progressBarsScript%}'
 </body>
 </html>

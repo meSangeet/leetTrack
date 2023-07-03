@@ -1,2 +1,1 @@
-ssage);
-              res.writeHead(500);
+{%progressBarsScript%}'

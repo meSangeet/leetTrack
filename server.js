@@ -1,7 +1,6 @@
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
-
 let naame;
 let PFurl
 let PFurlorg = "https://leetcode-stats-api.herokuapp.com/"; //profile URL original
@@ -37,10 +36,8 @@ const server = http.createServer((req, res) => {
       }
 
       const userInput = requestData.data;
-      console.log('User input:', userInput);
       naame = userInput;
       PFurl = PFurlorg + userInput;
-      console.log(PFurl);
 
       https.get(PFurl, (resp) => {
         let data = '';
@@ -70,9 +67,42 @@ const server = http.createServer((req, res) => {
           throw err;
         }
         res.writeHead(200);
-        res.end(data);
+        console.log(naame);
+        console.log(PFurl);
+        let modifiedData = data.replace('{%API%}', PFurl);
+        modifiedData = modifiedData.replace('{%username%}', naame);
+        let tp, ep, mp, hp;
+        https.get(PFurl, (resp) => {
+            let dat = '';
+    
+            resp.on('data', (chunk) => {
+              dat += chunk;
+            });
+            resp.on('end', () => {
+                let objdat = JSON.parse(dat);
+                let ep = Math.floor((objdat.easySolved / objdat.totalEasy) * 100);
+                let mp = Math.floor((objdat.mediumSolved / objdat.totalMedium) * 100);
+                let hp = Math.floor((objdat.hardSolved / objdat.totalHard) * 100);
+                
+                let progressBarsScript = `
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                      document.getElementById('ep-bar').style.width = '${ep}%';
+                      document.getElementById('mp-bar').style.width = '${mp}%';
+                      document.getElementById('hp-bar').style.width = '${hp}%';
+                    });
+                  </script>
+                `;
+                
+                modifiedData = modifiedData.replace('{%progressBarsScript%}', progressBarsScript);
+                
+            });
+        
+
+        res.end(modifiedData);
       });
-  }else {
+    });  
+    }else {
     res.writeHead(404);
     res.end('Not found');
   }
